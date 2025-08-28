@@ -1,0 +1,48 @@
+
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:#0b0c14;color:#e7e9ee;font-family:Inter,system-ui,Arial,sans-serif}
+a{color:#8ab4ff;text-decoration:none}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #1b1e2b;background:#0f1020;position:sticky;top:0;z-index:10}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#7c4dff,#00e5ff);display:grid;place-items:center;font-weight:800}
+.subtitle{opacity:.7;margin:.25rem 0 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.actions .coins,.actions .weapon{background:#141a2a;border:1px solid #27314d;padding:6px 10px;border-radius:10px}
+button, .btn{background:#1a2030;color:#e7e9ee;border:1px solid #2a2f43;padding:8px 12px;border-radius:10px;cursor:pointer}
+button:hover,.btn:hover{background:#232a3d}
+button.danger{border-color:#3a2430;background:#2a1720}
+button.danger:hover{background:#3a1d28}
+.content{max-width:980px;margin:0 auto;padding:16px}
+.hud{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#0f1320;border:1px solid #1d2440;border-radius:16px;padding:12px}
+.card.enemy{border-color:#3a2a2a;background:#171219}
+.card.player{border-color:#243a2a;background:#121a17}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.pill{background:#1e2236;border:1px solid #2a335e;padding:2px 8px;border-radius:999px;font-size:.85rem;opacity:.9}
+.stat-row{display:grid;grid-template-columns:60px 1fr auto;gap:8px;align-items:center;margin:8px 0}
+.bar{height:12px;background:#1a2136;border-radius:999px;overflow:hidden;border:1px solid #2a2f43}
+.bar.energy{background:#17212c;border-color:#243246}
+.bar>div{height:100%;width:0%;background:linear-gradient(90deg,#ff7a7a,#ffb36b)}
+.bar.energy>div{background:linear-gradient(90deg,#69e0ff,#64ffa2)}
+.portrait{width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:6px;border:1px solid #23283f}
+.footer{opacity:.7;padding:16px 6px;text-align:center}
+.stage{position:relative;height:260px;overflow:hidden}
+.backdrop{position:absolute;inset:0;background:#10131e center/cover no-repeat;border-radius:12px;opacity:.9;filter:saturate(1.1)}
+.arena-img{position:absolute;bottom:8px;width:38%;max-width:360px;object-fit:contain;filter:drop-shadow(0 8px 28px rgba(0,0,0,.6))}
+.arena-img.left{left:6%}
+.arena-img.right{right:6%;transform:scaleX(-1)}
+.dialog .btns{display:flex;gap:8px}
+.dialog-content{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center}
+.dialog-portrait{width:120px;height:120px;border-radius:12px;border:1px solid #2a2f43;object-fit:cover}
+.dialog-text{line-height:1.35}
+.dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.explore h2{margin:4px 0 12px}
+.map{display:flex;gap:12px;flex-wrap:wrap}
+.place{background:#111628;border:1px solid #1e2a46;border-radius:12px;padding:6px;display:flex;flex-direction:column;align-items:center;width:140px}
+.place img{width:100%;height:96px;object-fit:cover;border-radius:8px;margin-bottom:6px}
+.place span{opacity:.9}
+.explore-actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.log #log{max-height:200px;overflow:auto;white-space:pre-wrap;line-height:1.4;padding:6px}
+.commands .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cmd{font-size:1rem;padding:12px 10px;background:#171b2b;border:1px solid #283456;border-radius:12px}
+.cmd:hover{background:#1d2238}
+@media (max-width:780px){.hud{grid-template-columns:1fr} .dialog-content{grid-template-columns:1fr} .dialog-portrait{width:100%;height:180px}}

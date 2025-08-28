@@ -1,0 +1,141 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f1020" />
+  <title>RPG de Turnos • Exploração & Arena</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">RT</div>
+      <div>
+        <h1>RPG de Turnos</h1>
+        <p class="subtitle">Exploração + Batalha • PWA</p>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="coins">🪙 <span id="coins">0</span></div>
+      <div class="weapon">⚔️ <span id="weapon">Nenhuma</span></div>
+      <button id="btn-install">Instalar</button>
+      <button id="btn-export">Exportar</button>
+      <label for="file-import" class="btn">Importar</label>
+      <input id="file-import" type="file" accept="application/json" style="display:none" />
+      <button id="btn-restart" class="danger">Reiniciar</button>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="explore card" id="explore">
+      <h2>🏘️ Aldeia</h2>
+      <div class="map">
+        <button class="place" data-act="talk-messi">
+          <img src="imgs/narrator_messi.png" alt="Narrador"><span>Narrador</span>
+        </button>
+        <button class="place" data-act="talk-pink">
+          <img src="imgs/quest_girl_pink.png" alt="Loja"><span>Loja</span>
+        </button>
+        <button class="place" data-act="talk-old">
+          <img src="imgs/villager_old.png" alt="Aldeão"><span>Aldeão</span>
+        </button>
+      </div>
+      <div class="explore-actions">
+        <button class="go" data-enc="wolf">Caçar Lobo</button>
+        <button class="go" data-enc="zombie">Caçar Zumbi</button>
+        <button class="go" data-enc="random">Encontro Aleatório</button>
+      </div>
+    </section>
+
+    <section class="stage card" id="stage" style="display:none">
+      <div id="backdrop" class="backdrop"></div>
+      <img id="player-arena" class="arena-img left" alt="Player">
+      <img id="enemy-arena" class="arena-img right" alt="Inimigo">
+    </section>
+
+    <section class="hud">
+      <div class="card enemy">
+        <img id="enemy-img" class="portrait" alt="Retrato do inimigo">
+        <div class="card-header">
+          <span id="enemy-name">???</span>
+          <span id="enemy-level" class="pill">Nv. 1</span>
+        </div>
+        <div class="stat-row">
+          <label>HP</label>
+          <div class="bar"><div id="enemy-hpbar"></div></div>
+          <span id="enemy-hptext">--/--</span>
+        </div>
+      </div>
+
+      <div class="card player">
+        <img id="player-img" class="portrait" alt="Retrato do player">
+        <div class="card-header">
+          <span id="player-name">Você</span>
+          <span id="player-level" class="pill">Nv. 1</span>
+        </div>
+        <div class="stat-row">
+          <label>HP</label>
+          <div class="bar"><div id="player-hpbar"></div></div>
+          <span id="player-hptext">--/--</span>
+        </div>
+        <div class="stat-row">
+          <label>Energia</label>
+          <div class="bar energy"><div id="player-enbar"></div></div>
+          <span id="player-entext">--/--</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dialog card">
+      <div class="card-header">
+        <span>Diálogo</span>
+        <div class="btns">
+          <button class="talk" data-who="messi">Instruções</button>
+          <button class="talk" data-who="pink">Missão/Loja</button>
+          <button class="talk" data-who="old">Aldeão</button>
+        </div>
+      </div>
+      <div class="dialog-content">
+        <img id="dialog-portrait" class="dialog-portrait" alt="Retrato NPC" />
+        <div id="dialog-text" class="dialog-text">Você está na aldeia. Fale com alguém ou escolha um encontro.</div>
+        <div id="dialog-actions" class="dialog-actions"></div>
+      </div>
+    </section>
+
+    <section class="commands card">
+      <div class="card-header">
+        <span>Ações de Combate</span>
+      </div>
+      <div class="grid">
+        <button class="cmd" data-action="quick">⚡ Ataque Rápido (3)</button>
+        <button class="cmd" data-action="heavy">🪓 Ataque Pesado (7)</button>
+        <button class="cmd" data-action="item">🧪 Poção</button>
+        <button class="cmd" data-action="flee">🏃 Fugir</button>
+      </div>
+    </section>
+
+    <section class="log card">
+      <div class="card-header">
+        <span>Registro</span>
+      </div>
+      <div id="log"></div>
+    </section>
+
+    <footer class="footer">
+      <span>v2.0.1 • exploração + loja + missões • <a href="#" id="readmeLink">README</a></span>
+    </footer>
+  </main>
+
+  <script src="main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+</body>
+</html>
