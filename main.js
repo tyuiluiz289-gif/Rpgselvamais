@@ -1,5 +1,5 @@
 
-// Exploração + Arena com economia, armas e missões (corrigido)
+// Exploracao + Arena com economia, armas e missoes (corrigido) - paths de imagem apontam para a RAIZ
 const $ = (s) => document.querySelector(s);
 
 const ui = {
@@ -60,37 +60,37 @@ const SAVE_KEY = "rpg-turnos-explore-v2";
 const NPCS = {
   messi: {
     name: "Narrador",
-    img: "imgs/narrator_messi.png",
+    img: "narrator_messi.png",
     lines: [
-      "Bem-vindo à aldeia. Gerencie energia, use poções com sabedoria e não subestime ataques rápidos.",
-      "Lembre: espada de ferro (+5 dano). Ouro: você SEMPRE age primeiro."
+      "Bem-vindo a aldeia. Gerencie energia, use pocoes com sabedoria e nao subestime ataques rapidos.",
+      "Lembre: espada de ferro (+5 dano). Ouro: voce SEMPRE age primeiro."
     ]
   },
   pink: {
     name: "Lojista",
-    img: "imgs/quest_girl_pink.png",
+    img: "quest_girl_pink.png",
     lines: [
       "Loja aberta! Ferro por 30 moedas, Ouro por 60. Qual vai levar?",
-      "Missão: Derrote um Zumbi na vila vizinha. Pronta pra aceitar?"
+      "Missao: Derrote um Zumbi na vila vizinha. Pronta pra aceitar?"
     ]
   },
   old: {
-    name: "Aldeão",
-    img: "imgs/villager_old.png",
+    name: "Aldeao",
+    img: "villager_old.png",
     lines: [
-      "Os lobos rondam os campos… poderia expulsá-los?",
-      "Dizem que um zumbi foi visto à luz vermelha da lua."
+      "Os lobos rondam os campos... poderia expulsa-los?",
+      "Dizem que um zumbi foi visto a luz vermelha da lua."
     ]
   }
 };
 
 const ENEMIES = {
-  goblin_a: { name: "Goblin Verde A", img: "imgs/goblin_a.png", bg: "imgs/bg_school.png", drop: 5 },
-  goblin_b: { name: "Goblin Verde B", img: "imgs/goblin_b.png", bg: "imgs/bg_school.png", drop: 5 },
-  goblin_c: { name: "Goblin Verde C", img: "imgs/goblin_c.png", bg: "imgs/bg_school.png", drop: 5 },
-  wolf:     { name: "Lobo da Mata",   img: "imgs/wolf.png",      bg: "imgs/bg_forest.png", drop: 2 },
-  zombie:   { name: "Zumbi da Lua",   img: "imgs/zombie.png",    bg: "imgs/bg_bloodmoon.png", drop: 6 },
-  miniboss: { name: "Mini Boss",      img: "imgs/miniboss_brutamontes.png", bg: "imgs/bg_bloodmoon.png", drop: 9 }
+  goblin_a: { name: "Goblin Verde A", img: "goblin_a.png", bg: "bg_school.png", drop: 5 },
+  goblin_b: { name: "Goblin Verde B", img: "goblin_b.png", bg: "bg_school.png", drop: 5 },
+  goblin_c: { name: "Goblin Verde C", img: "goblin_c.png", bg: "bg_school.png", drop: 5 },
+  wolf:     { name: "Lobo da Mata",   img: "wolf.png",      bg: "bg_forest.png", drop: 2 },
+  zombie:   { name: "Zumbi da Lua",   img: "zombie.png",    bg: "bg_bloodmoon.png", drop: 6 },
+  miniboss: { name: "Mini Boss",      img: "miniboss_brutamontes.png", bg: "bg_stadium.png", drop: 9 }
 };
 
 const RANDOM_POOL = [
@@ -122,9 +122,9 @@ function defaultState() {
     weapon: "none", // none | iron | gold
     bossKills: 0,
     mission: null,  // {type:"wolf"|"zombie", need:N, done:0}
-    player: new Unit("Você", 1, 80, 12, 6, 10, 100, "imgs/player_portrait.png"),
+    player: new Unit("Voce", 1, 80, 12, 6, 10, 100, "player_portrait.png"),
     enemy: null,
-    log: ["Você chega à aldeia. O narrador te observa em silêncio."],
+    log: ["Voce chega a aldeia. O narrador te observa em silencio."],
     npcIndex: { messi: 0, pink: 0, old: 0 }
   };
 }
@@ -170,7 +170,7 @@ function startBattle(kind) {
   state.enemy = spawnEnemy(kind);
   setMode("battle");
   renderAll();
-  writeLog(`⚠️ Você encontrou ${state.enemy.name}!`);
+  writeLog(`ï¸ Voce encontrou ${state.enemy.name}!`);
   save();
 }
 
@@ -182,11 +182,11 @@ function writeLog(t) {
 function finishBattleVictory() {
   const coins = state.enemy.drop || 0;
   state.coins += coins;
-  writeLog(`🪙 Você ganhou ${coins} moedas.`);
+  writeLog(` Voce ganhou ${coins} moedas.`);
   if (state.enemy.kind === "miniboss") {
     state.bossKills += 1;
     if (state.bossKills >= 10) {
-      writeLog("🏁 Você derrotou o Mini Boss 10 vezes. A aldeia está em paz… (Fim oculto).");
+      writeLog(" Voce derrotou o Mini Boss 10 vezes. A aldeia esta em paz... (Fim oculto).");
     }
   }
   state.battle += 1;
@@ -194,7 +194,7 @@ function finishBattleVictory() {
     if (state.mission.type === "wolf" && state.enemy.kind === "wolf") state.mission.done++;
     if (state.mission.type === "zombie" && state.enemy.kind === "zombie") state.mission.done++;
     if (state.mission.done >= state.mission.need) {
-      writeLog(`✔️ Missão concluída: ${state.mission.type}. Volte ao NPC para novas tarefas.`);
+      writeLog(`ï¸ Missao concluida: ${state.mission.type}. Volte ao NPC para novas tarefas.`);
       state.mission = null;
     }
   }
@@ -218,8 +218,8 @@ function renderAll() {
     ui.arenaEnemy.src = state.enemy.img;
     ui.backdrop.style.backgroundImage = `url('${state.enemy.bg}')`;
   } else {
-    ui.enemyName.textContent = "—";
-    ui.enemyLvl.textContent = "Nv. —";
+    ui.enemyName.textContent = "-";
+    ui.enemyLvl.textContent = "Nv. -";
     ui.enemyHPText.textContent = "--/--";
     setBar(ui.enemyHPBar, 0);
     ui.enemyImg.src = "";
@@ -255,7 +255,7 @@ function enemyAct() {
   if (!state.enemy || !state.enemy.alive()) return;
   const dmg = Math.max(1, Math.floor(state.enemy.atk * 0.8) - Math.floor(state.player.def * 0.3));
   state.player.hp = Math.max(0, state.player.hp - dmg);
-  writeLog(`👾 ${state.enemy.name} atacou: ${dmg} de dano.`);
+  writeLog(` ${state.enemy.name} atacou: ${dmg} de dano.`);
 }
 
 function playerActsFirst(move) {
@@ -267,25 +267,25 @@ function playerActsFirst(move) {
 function applyPlayerMove(move) {
   if (move === "item") {
     if (state.player.items <= 0) {
-      writeLog("⚠️ Sem poções.");
+      writeLog("ï¸ Sem pocoes.");
       return;
     }
     state.player.items--;
     const heal = 30;
     state.player.hp = Math.min(state.player.maxHP, state.player.hp + heal);
-    writeLog(`🧪 Poção: +${heal} HP. (${state.player.items} restantes)`);
+    writeLog(` Pocao: +${heal} HP. (${state.player.items} restantes)`);
     return;
   }
   if (move === "flee") {
     const ok = Math.random() < 0.6;
     if (ok) {
-      writeLog("🏃 Você fugiu com sucesso.");
+      writeLog(" Voce fugiu com sucesso.");
       setMode("explore");
       renderAll();
       save();
       return "fled";
     } else {
-      writeLog("❌ Falha ao fugir.");
+      writeLog(" Falha ao fugir.");
       return;
     }
   }
@@ -293,14 +293,14 @@ function applyPlayerMove(move) {
   if (state.weapon === "iron") base += 5;
   const dmg = calcDamage(state.player, base, state.enemy);
   state.enemy.hp = Math.max(0, state.enemy.hp - dmg);
-  writeLog((move === "quick") ? `⚡ Rápido causou ${dmg}.` : `🪓 Pesado causou ${dmg}.`);
+  writeLog((move === "quick") ? ` Rapido causou ${dmg}.` : ` Pesado causou ${dmg}.`);
   return;
 }
 
 function resolveTurn(move) {
   if (state.mode !== "battle" || !state.enemy) return;
   if (!state.player.alive()) {
-    writeLog("💀 Você caiu.");
+    writeLog(" Voce caiu.");
     return;
   }
 
@@ -323,10 +323,10 @@ function resolveTurn(move) {
   endTurnRegen(state.enemy);
 
   if (!state.player.alive()) {
-    writeLog("💀 Derrota. Volte à aldeia para se preparar melhor.");
+    writeLog(" Derrota. Volte a aldeia para se preparar melhor.");
     setMode("explore");
   } else if (!state.enemy.alive()) {
-    writeLog(`✅ ${state.enemy.name} foi derrotado!`);
+    writeLog(` ${state.enemy.name} foi derrotado!`);
     finishBattleVictory();
   }
 
@@ -358,10 +358,10 @@ function speak(who) {
   if (who === "pink") {
     addActionButton("Comprar Ferro (30)", () => buy("iron", 30));
     addActionButton("Comprar Ouro (60)", () => buy("gold", 60));
-    addActionButton("Aceitar missão Zumbi (1)", () => acceptMission("zombie", 1));
+    addActionButton("Aceitar missao Zumbi (1)", () => acceptMission("zombie", 1));
   }
   if (who === "old") {
-    addActionButton("Aceitar missão Lobos (3)", () => acceptMission("wolf", 3));
+    addActionButton("Aceitar missao Lobos (3)", () => acceptMission("wolf", 3));
   }
 
   save();
@@ -375,15 +375,15 @@ function buy(kind, cost) {
   state.coins -= cost;
   state.weapon = kind;
   ui.dialogText.textContent = (kind === "iron")
-    ? "Você equipa a Espada de Ferro (+5 dano)."
-    : "Você equipa a Espada de Ouro (atua primeiro).";
+    ? "Voce equipa a Espada de Ferro (+5 dano)."
+    : "Voce equipa a Espada de Ouro (atua primeiro).";
   renderAll();
   save();
 }
 
 function acceptMission(type, need) {
   state.mission = { type, need, done: 0 };
-  ui.dialogText.textContent = (type === "wolf") ? "Missão: mate 3 lobos." : "Missão: derrote 1 zumbi.";
+  ui.dialogText.textContent = (type === "wolf") ? "Missao: mate 3 lobos." : "Missao: derrote 1 zumbi.";
   save();
 }
 
@@ -411,7 +411,7 @@ function bindCombat() {
   document.querySelectorAll(".cmd").forEach((b) => {
     b.addEventListener("click", () => {
       if (state.mode !== "battle") {
-        writeLog("Você não está em combate.");
+        writeLog("Voce nao esta em combate.");
         return;
       }
       resolveTurn(b.dataset.action);
@@ -440,10 +440,10 @@ function importSave(file) {
       state = p;
       setMode(state.mode || "explore");
       renderAll();
-      writeLog("✔️ Save importado.");
+      writeLog("ï¸ Save importado.");
       save();
     } catch (e) {
-      writeLog("❌ Arquivo inválido.");
+      writeLog(" Arquivo invalido.");
     }
   };
   reader.readAsText(file);
@@ -465,7 +465,7 @@ function bindSystem() {
   if (ui.readmeLink) {
     ui.readmeLink.addEventListener("click", (e) => {
       e.preventDefault();
-      alert("README no repositório explica como publicar.");
+      alert("README no repositorio explica como publicar.");
     });
   }
   let deferredPrompt = null;
