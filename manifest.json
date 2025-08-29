@@ -1,7 +1,7 @@
 {
-  "name": "RPG Turnos Exploração",
-  "short_name": "RPG",
-  "description": "Um RPG em turnos com exploração, loja e missões.",
+  "name": "RPG de Turnos",
+  "short_name": "RPGTurnos",
+  "description": "Exploração, batalhas em turnos e missões.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0b0c14",
